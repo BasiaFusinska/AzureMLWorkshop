@@ -11,9 +11,10 @@ namespace AzureMLWebServices
         static void Main(string[] args)
         {
             string irisApiKey = "<<apiKey>>";
+            string webServiceUri = "<<webServiceUri>>";
             var values = new string[,] { { "1.3", "2.9", "4.1", "2.5" }, { "0.5", "0.7", "1", "0.5" } };
 
-            new IrisWebService(irisApiKey).InvokeRequestResponseService(values).Wait();
+            new IrisWebService(irisApiKey, webServiceUri).InvokeRequestResponseService(values).Wait();
 
             Console.ReadLine();
         }

@@ -9,10 +9,12 @@ namespace AzureMLWebServices
     class IrisWebService
     {
         private string ApiKey;
+        private string WebServiceUri;
 
-        public IrisWebService(string apiKey)
+        public IrisWebService(string apiKey, string webServiceUri)
         {
             ApiKey = apiKey;
+            WebServiceUri = WebServiceUri;
         }
 
         public async Task InvokeRequestResponseService(string[,] values)
@@ -28,7 +30,7 @@ namespace AzureMLWebServices
                             new StringTable()
                             {
                                 ColumnNames = new string[] {"sepal-length", "sepal-width", "petal-length", "petal-width"},
-                                Values = values //new string[,] {  { "0", "0", "0", "0" },  { "0", "0", "0", "0" },  }
+                                Values = values
                             }
                         },
                     },
@@ -39,7 +41,7 @@ namespace AzureMLWebServices
 
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiKey);
 
-                client.BaseAddress = new Uri("https://ussouthcentral.services.azureml.net/workspaces/1ca5ada1f2dc4a7a8a50c40eea394d1f/services/5b10e17b418d4e85b719e78e093fba12/execute?api-version=2.0&details=true");
+                client.BaseAddress = new Uri(WebServiceUri);
 
                 // WARNING: The 'await' statement below can result in a deadlock if you are calling this code from the UI thread of an ASP.Net application.
                 // One way to address this would be to call ConfigureAwait(false) so that the execution does not attempt to resume on the original context.
